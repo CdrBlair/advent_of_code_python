@@ -34,11 +34,8 @@ def main():
 
     # loop over engine schematic and find max x and y
 
-    for key in engine_schematic:
-        if key[0] > max_x:
-            max_x = key[0]
-        if key[1] > max_y:
-            max_y = key[1]
+    max_x = max(key[0] for key in engine_schematic)
+    max_y = max(key[1] for key in engine_schematic)
 
     # loop over engine schematic and print it
     # for y in range(max_y + 1):
