@@ -58,10 +58,10 @@ def main():
                 if balls > minimum_balls[color]:
                     minimum_balls[color] = balls
         power = minimum_balls["red"] * minimum_balls["blue"] * minimum_balls["green"]
-        print("game", game, "power", power, "minimum_balls", minimum_balls)
+
         overall_power += power
 
-        print("overall_power", overall_power)
+    print("overall_power", overall_power)
 
     end_time = time.time()
     print("Time: ", end_time - start_time, "seconds")
