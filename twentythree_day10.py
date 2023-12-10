@@ -76,7 +76,6 @@ def main():
         if not beforeNode == start and start in nextPipes:
             steps += 1
             reachedStart = True
-
             break
 
         for node in nextPipes:
