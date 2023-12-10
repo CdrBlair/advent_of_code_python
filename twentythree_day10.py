@@ -1,6 +1,7 @@
 import os
 import time
 from gettext import find
+from itertools import count
 
 
 # Main method
@@ -22,13 +23,15 @@ def main():
             if char == "S":
                 start = (j, i)
 
-    # for i in range(max(map.keys())[0] + 1):
-    #     for j in range(max(map.keys())[1] + 1):
+    # for i in range(max(map.keys())[1] + 1):
+    #     for j in range(max(map.keys())[0] + 1):
     #         print(map[(j, i)][0], end="")
     #     print()
 
     # set connecting pipes to start
-    connectingPipes = find_conecting_pipes(map, start)
+    maxX = max(map.keys())[0]
+    maxY = max(map.keys())[1]
+    connectingPipes = find_conecting_pipes(map, start, maxX, maxY)
     map[start] = (
         "S",
         connectingPipes[0],
@@ -92,8 +95,9 @@ def main():
     print("Time taken in ms part 1: ", (end_time_p1 - start_time) * 1000)
 
     originalKeys = map.keys()
-    newMaxX = max(originalKeys)[0] * 2
-    newMaxY = max(originalKeys)[1] * 2
+    newMaxX = max(key[0] for key in originalKeys) * 2
+    newMaxY = max(key[1] for key in originalKeys) * 2
+
     extended_map = {
         (x, y): ("I", None, None)
         for x in range(newMaxX + 1)
@@ -120,10 +124,17 @@ def main():
             None,
         )
 
+    # print extended map
+    # for i in range(max(extended_map.keys())[1] + 1):
+    #     for j in range(max(extended_map.keys())[0] + 1):
+    #         print(extended_map[(j, i)][0], end="")
+    #     print()
+
     visited = set()
     allLoopTileCoords = [(tile[0][0] * 2, tile[0][1] * 2) for tile in allLoopTiles]
 
     allLoopTileCoords = set(allLoopTileCoords)
+
     flood_fill(extended_map, (0, 0), visited, newMaxX, newMaxY, allLoopTileCoords)
 
     final_map = {
@@ -137,8 +148,8 @@ def main():
         final_map[tile[0]] = ("X", None, None)
 
     # Print final map
-    # for i in range(max(final_map.keys())[0] + 1):
-    #     for j in range(max(final_map.keys())[1] + 1):
+    # for i in range(max(final_map.keys())[1] + 1):
+    #     for j in range(max(final_map.keys())[0] + 1):
     #         print(final_map[(j, i)][0], end="")
     #     print()
 
@@ -156,14 +167,27 @@ def main():
 
 # Flood Fill
 def flood_fill(map, start, visited, maxX, maxY, loopTiles):
-    stack = [start]
+    stack = [(-1, -1)]
+    count = 0
+    # Add extra rows and columsn to outside of map
+    maxX += 1
+    maxY += 1
+    # Fills this extra colums and rows with . This is removed by the remapping with %2 in the main function
+    for i in range(-1, maxX + 1):
+        map[(i, maxY)] = (".", None, None)
+        map[(i, -1)] = (".", None, None)
+    for i in range(maxY + 1):
+        map[(maxX, i)] = (".", None, None)
+        map[(-1, i)] = (".", None, None)
     while stack:
-        current = stack.pop()
+        count += 1
+
+        current = stack.pop(0)
         if (
             current[0] > maxX
-            or current[0] < 0
+            or current[0] < -1
             or current[1] > maxY
-            or current[1] < 0
+            or current[1] < -1
             or current in visited
             or current in loopTiles
             or map[current][0] == "X"
@@ -171,10 +195,17 @@ def flood_fill(map, start, visited, maxX, maxY, loopTiles):
             continue
         visited.add(current)
         map[current] = ("O", None, None)
+        # os.system("cls" if os.name == "nt" else "clear")
+        # for i in range(-1, maxY + 1):
+        #     for j in range(-1, maxX + 1):
+        #         print(map[(j, i)][0], end="")
+        #     print()
+        # time.sleep(0.1)
         stack.append((current[0] + 1, current[1]))
         stack.append((current[0] - 1, current[1]))
         stack.append((current[0], current[1] + 1))
         stack.append((current[0], current[1] - 1))
+    print("Count: ", count)
 
 
 # Find next pipe
@@ -195,30 +226,23 @@ def find_next_pipes(map, node):
 
 
 # Find conecting pipes
-def find_conecting_pipes(map, start):
-    allconnectors = ["|", "-", "L", "J", "7", "F"]
-    connectorsDown = ["|", "F", "7"]
-    connectorsUp = ["|", "J", "L"]
-    connectorsRight = ["-", "F", "L"]
-    connectorsLeft = ["-", "J", "7"]
-
-    # Find max x and y
-    maxX = max(map.keys())[0]
-    maxY = max(map.keys())[1]
+def find_conecting_pipes(map, start, maxX, maxY):
+    connectors = {
+        "up": (0, -1, ["|", "F", "7"]),
+        "down": (0, 1, ["|", "J", "L"]),
+        "left": (-1, 0, ["-", "F", "L"]),
+        "right": (1, 0, ["-", "J", "7"]),
+    }
 
     connecting_pipes = []
-    # above
-    if start[1] - 1 > -1 and map[(start[0], start[1] - 1)][0] in connectorsDown:
-        connecting_pipes.append(start[0], start[1] - 1)
-    # below
-    if start[1] + 1 < maxY + 1 and map[(start[0], start[1] + 1)][0] in connectorsUp:
-        connecting_pipes.append((start[0], start[1] + 1))
-    # left
-    if start[0] - 1 > -1 and map[(start[0] - 1, start[1])][0] in connectorsRight:
-        connecting_pipes.append((start[0] - 1, start[1]))
-    # right
-    if start[0] + 1 < maxX and map[(start[0] + 1, start[1])][0] in connectorsLeft:
-        connecting_pipes.append((start[0] + 1, start[1]))
+    for direction, (dx, dy, valid_connectors) in connectors.items():
+        new_x, new_y = start[0] + dx, start[1] + dy
+        if (
+            0 <= new_x <= maxX
+            and 0 <= new_y <= maxY
+            and map[(new_x, new_y)][0] in valid_connectors
+        ):
+            connecting_pipes.append((new_x, new_y))
     return connecting_pipes
 
 
