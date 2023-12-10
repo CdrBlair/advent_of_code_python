@@ -78,11 +78,12 @@ def main():
             reachedStart = True
             break
 
-        for node in nextPipes:
-            if not node == beforeNode:
-                beforeNode = currentNodeCoord
-                currentNodeCoord = node
-                break
+        if nextPipes[0] == beforeNode:
+            beforeNode = currentNodeCoord
+            currentNodeCoord = nextPipes[1]
+        else:
+            beforeNode = currentNodeCoord
+            currentNodeCoord = nextPipes[0]
 
         steps += 1
 
