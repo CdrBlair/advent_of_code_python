@@ -118,21 +118,21 @@ def find_shortest_path_alt(galaxyPair, emptyColumns, emptyRows, p1):
     if start[0] <= end[0]:
         xSteps = end[0] - start[0]
         columns_between = set(range(start[0] + 1, end[0]))
-        xSteps += len(columns_between.intersection(emptyColumns)) * (factorEmpty - 1)
+        xSteps += len(columns_between & emptyColumns) * (factorEmpty - 1)
     else:
         xSteps = start[0] - end[0]
         columns_between = set(range(end[0] + 1, start[0]))
-        xSteps += len(columns_between.intersection(emptyColumns)) * (factorEmpty - 1)
+        xSteps += len(columns_between & emptyColumns) * (factorEmpty - 1)
 
     # Y Steps
     if start[1] <= end[1]:
         ySteps = end[1] - start[1]
         rows_between = set(range(start[1] + 1, end[1]))
-        ySteps += len(rows_between.intersection(emptyRows)) * (factorEmpty - 1)
+        ySteps += len(rows_between & emptyRows) * (factorEmpty - 1)
     else:
         ySteps = start[1] - end[1]
         rows_between = set(range(end[1] + 1, start[1]))
-        ySteps += len(rows_between.intersection(emptyRows)) * (factorEmpty - 1)
+        ySteps += len(rows_between & emptyRows) * (factorEmpty - 1)
     steps = xSteps + ySteps
     return steps
 
