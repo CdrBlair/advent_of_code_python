@@ -71,7 +71,7 @@ def main():
                     originalLine = -1
                 reflectionLine = findReflections(block, originalLine)
 
-                if reflectionLine > 0 and ("H", reflectionLine) != original:
+                if reflectionLine > 0:
                     sumOfNotes += 100 * reflectionLine
                     # for blockline in block:
                     #     print(blockline)
@@ -87,9 +87,7 @@ def main():
                 else:
                     originalLine = -1
                 reflectionLine = findReflections(blockTransposed, originalLine)
-                if reflectionLine > 0 and not original in [
-                    ("V", reflectionLine),
-                ]:
+                if reflectionLine > 0:
                     sumOfNotes += reflectionLine
                     # for blockline in blockTransposed:
                     #     print(blockline)
