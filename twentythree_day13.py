@@ -1,8 +1,5 @@
 import os
 import time
-from gettext import find
-
-from numpy import block
 
 
 # Main method
