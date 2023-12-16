@@ -26,6 +26,8 @@ def main():
     print("Part one time: ", endTimeP1 - start_time)
     print("Part one time in ms: ", (endTimeP1 - start_time) * 1000)
 
+    reindeerHash.cache_clear()
+
     boxes = [OrderedDict() for _ in range(256)]
     convertedSteps = []
     for step in steps:
@@ -50,6 +52,7 @@ def main():
             boxaslist = list(box)
             for j, key in enumerate(box):
                 focalSum += (1 + i) * (j + 1) * box[key]
+    print("Cache information: ", reindeerHash.cache_info())
     print("Focal sum: ", focalSum)
     endTimeP2 = time.time()
     print("Part two time: ", endTimeP2 - endTimeP1)
