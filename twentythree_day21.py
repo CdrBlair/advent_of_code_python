@@ -33,9 +33,9 @@ def main():
             print(gardenMap[(j, i)], end="")
         print()
     gardenMap = tuple(gardenMap.items())
-    stepsElf = 65
+    stepsElf = 64
     # P2 manual variants
-    start = (start[0], maxY)
+    start = (0, 0)
     current = [start]
     for i in range(stepsElf):
         newPositions = set()
