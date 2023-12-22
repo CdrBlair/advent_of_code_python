@@ -2,6 +2,7 @@ import copy
 import os
 import time
 from collections import deque
+from multiprocessing import Pool
 
 
 # Main method
@@ -101,28 +102,58 @@ def main():
     # P2
     # desintegrate blocks and check if others will fall, add to falling list
     # print(supportingBrickList)
-    fallingBricks = []
-    for brick in bricks:
-        stack = deque([brick["id"]])
-        tempSupportingBrickList = copy.deepcopy(supportingBrickList)
+    # fallingBricks = []
+    # for brick in bricks:
+    #     fallingBricks.append(checkMovingBricks(brick, supportingBrickList))
 
-        fallingBrickCount = 0
-        while stack:
-            currentBrick = stack.pop()
+    with Pool() as p:
+        fallingBricks = p.starmap(
+            checkMovingBricks,
+            [(brick, supportingBrickList) for i, brick in enumerate(bricks)],
+        )
+        # stack = deque([brick["id"]])
+        # tempSupportingBrickList = copy.deepcopy(supportingBrickList)
 
-            for supportedBrick in tempSupportingBrickList:
-                if currentBrick in tempSupportingBrickList[supportedBrick]:
-                    tempSupportingBrickList[supportedBrick].remove(currentBrick)
-                    if len(tempSupportingBrickList[supportedBrick]) == 0:
-                        stack.append(supportedBrick)
-                        fallingBrickCount += 1
-        fallingBricks.append(fallingBrickCount)
+        # fallingBrickCount = 0
+        # while stack:
+        #     currentBrick = stack.pop()
+
+        #     for supportedBrick in tempSupportingBrickList:
+        #         if currentBrick in tempSupportingBrickList[supportedBrick]:
+        #             tempSupportingBrickList[supportedBrick].remove(currentBrick)
+        #             if len(tempSupportingBrickList[supportedBrick]) == 0:
+        #                 stack.append(supportedBrick)
+        #                 fallingBrickCount += 1
+        # fallingBricks.append(fallingBrickCount)
 
     print("Number of bricks which will fall: ", sum(fallingBricks))
     endTimeP2 = time.time()
     print("Time taken p2: ", endTimeP2 - endTimeP1)
     print("Time in ms p2: ", (endTimeP2 - endTimeP1) * 1000)
     print("Total time: ", endTimeP2 - start_time)
+
+
+def checkMovingBricks(brick, supportingBrickList):
+    stack = deque([brick["id"]])
+
+    # tempSupportingBrickList = copy.deepcopy(supportingBrickList)
+    tempSupportingBrickList = {
+        k: {x for x in v} for k, v in supportingBrickList.items()
+    }
+
+    fallingBrickCount = 0
+    while stack:
+        currentBrick = stack.pop()
+
+        for supportedBrick in tempSupportingBrickList:
+            supportedSet = tempSupportingBrickList[supportedBrick]
+            if currentBrick in supportedSet:
+                supportedSet.remove(currentBrick)
+                if len(supportedSet) == 0:
+                    stack.append(supportedBrick)
+                    fallingBrickCount += 1
+
+    return fallingBrickCount
 
 
 # For all bricks find supporting bricks
