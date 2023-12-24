@@ -189,7 +189,7 @@ def main():
 
     # print(finalPaths)
     # print("Shortest Path: ", max(finalPaths))
-
+    print(conjuctions)
     # this only takes 2 seconds
     maxLenght = recursiveLength((1, 0), (maxX - 1, maxY), conjuctions, set())
     print("Longest Path: ", maxLenght)
