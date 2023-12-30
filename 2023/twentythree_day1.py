@@ -11,12 +11,13 @@ def main():
     script_dir = os.path.dirname(__file__)
     rel_path = "inputs/trebuchet.txt"
     abs_file_path = os.path.join(script_dir, rel_path)
+    print(abs_file_path)
     file = open(abs_file_path, "r")
 
     sum = 0
 
     # Loop over lines in file
-    for line in file:
+    for line in file: 
         sum += sum_first_last(line)
 
     print(sum)
