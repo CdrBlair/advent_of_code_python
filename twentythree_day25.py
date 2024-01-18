@@ -5,6 +5,7 @@ from itertools import combinations
 
 import matplotlib.pyplot as plt
 import networkx
+from matplotlib import lines
 
 
 # Main method
