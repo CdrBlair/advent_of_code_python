@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Color Changing Page</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        var colors = ['red', 'yellow', 'blue', 'green'];
+        var lastChange = Date.now();
+
+        function changeColor() {
+            if (Date.now() - lastChange >= 4000) {
+                var randomColor = colors[Math.floor(Math.random() * colors.length)];
+                document.body.style.backgroundColor = randomColor;
+                lastChange = Date.now();
+            }
+            requestAnimationFrame(changeColor);
+        }
+
+        changeColor();
+    </script>
+</body>
+</html>
