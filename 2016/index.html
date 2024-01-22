@@ -15,18 +15,13 @@
 <body>
     <script>
         var colors = ['red', 'yellow', 'blue', 'green'];
-        var lastChange = Date.now();
 
         function changeColor() {
-            if (Date.now() - lastChange >= 4000) {
-                var randomColor = colors[Math.floor(Math.random() * colors.length)];
-                document.body.style.backgroundColor = randomColor;
-                lastChange = Date.now();
-            }
-            requestAnimationFrame(changeColor);
+            var randomColor = colors[Math.floor(Math.random() * colors.length)];
+            document.body.style.backgroundColor = randomColor;
         }
 
-        changeColor();
+        setInterval(changeColor, 4000);
     </script>
 </body>
 </html>
