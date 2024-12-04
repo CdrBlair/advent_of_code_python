@@ -14,7 +14,7 @@ def main():
 
     # Open file
     script_dir = os.path.dirname(__file__)
-    rel_path = "inputs/wires.txt"
+    rel_path = "../inputs/wires.txt"
     abs_file_path = os.path.join(script_dir, rel_path)
     with open(abs_file_path, "r") as file:
         lines = file.readlines()
@@ -28,8 +28,8 @@ def main():
 
     nodeList = list(wireGraph.nodes())
 
-    networkx.draw(wireGraph, with_labels=True)
-    plt.show()
+    # networkx.draw(wireGraph, with_labels=True)
+    # plt.show()
     for rsource, rsink in combinations(nodeList, 2):
         # if random gives the same go on
         if rsource == rsink:
@@ -39,7 +39,7 @@ def main():
         if cut == 3:
             break
 
-    print(partitionSet)
+    # print(partitionSet)
     print("Result: ", len(partitionSet[0]) * len(partitionSet[1]))
     endtimeP1 = time.time()
     print("Part 1 time: ", endtimeP1 - start_time)

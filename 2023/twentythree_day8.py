@@ -12,7 +12,7 @@ def main():
 
     # Open file
     script_dir = os.path.dirname(__file__)
-    rel_path = "inputs/desertmap.txt"
+    rel_path = "../inputs/2023/desertmap.txt"
     abs_file_path = os.path.join(script_dir, rel_path)
     with open(abs_file_path, "r") as file:
         lines = file.readlines()

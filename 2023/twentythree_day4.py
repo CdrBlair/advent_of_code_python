@@ -11,7 +11,7 @@ def main():
 
     # Open file
     script_dir = os.path.dirname(__file__)
-    rel_path = "inputs/cards.txt"
+    rel_path = "../inputs/2023/cards.txt"
     abs_file_path = os.path.join(script_dir, rel_path)
     file = open(abs_file_path, "r")
 
@@ -65,7 +65,10 @@ def main():
 
 
 # Find how many points in this game and calculate points
-def find_points(winning_numbers, my_numbers) -> (int, int):
+from typing import Tuple
+
+
+def find_points(winning_numbers, my_numbers) -> Tuple[int, int]:
     points = 0
     winning_set = set(winning_numbers)
     my_set = set(my_numbers)

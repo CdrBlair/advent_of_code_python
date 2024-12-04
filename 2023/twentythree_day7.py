@@ -10,7 +10,7 @@ def main():
 
     # Open file
     script_dir = os.path.dirname(__file__)
-    rel_path = "inputs/camel_games.txt"
+    rel_path = "../inputs/2023/camel_games.txt"
     abs_file_path = os.path.join(script_dir, rel_path)
     with open(abs_file_path, "r") as file:
         lines = file.readlines()

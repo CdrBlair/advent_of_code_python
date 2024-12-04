@@ -11,7 +11,7 @@ def main():
 
     # Open file
     script_dir = os.path.dirname(__file__)
-    rel_path = "inputs/races.txt"
+    rel_path = "../inputs/2023/races.txt"
     abs_file_path = os.path.join(script_dir, rel_path)
     with open(abs_file_path, "r") as file:
         lines = file.readlines()
@@ -32,7 +32,7 @@ def main():
     print("Time taken total in ms: ", (end_time_p2 - start_time) * 1000)
 
 
-def calculate_wins(times: String, distance: String, part1: bool):
+def calculate_wins(times: str, distance: str, part1: bool):
     races = []
     if part1:
         times_string = times.split(" ")

@@ -1,8 +1,6 @@
 import os
 import time
 from heapq import heappop, heappush
-from math import dist
-from turtle import distance
 
 
 # Main method
@@ -11,7 +9,7 @@ def main():
 
     # Open file
     script_dir = os.path.dirname(__file__)
-    rel_path = "inputs/heatMap.txt"
+    rel_path = "../inputs/2023/heatMap.txt"
     abs_file_path = os.path.join(script_dir, rel_path)
     with open(abs_file_path, "r") as file:
         lines = file.readlines()

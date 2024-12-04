@@ -2,7 +2,6 @@ import operator
 import os
 import time
 from functools import reduce
-from re import T
 from typing import List, Tuple
 
 # definee dict for the engine schematic and max x and y
@@ -19,7 +18,7 @@ def main():
 
     # Open file
     script_dir = os.path.dirname(__file__)
-    rel_path = "inputs/engine_schematic.txt"
+    rel_path = "../inputs/2023/engine_schematic.txt"
     abs_file_path = os.path.join(script_dir, rel_path)
     file = open(abs_file_path, "r")
 
@@ -92,7 +91,7 @@ def main():
 # Method to check if gear adjacent to exactly two part numbers
 def check_adjacent_to_two_part_numbers(
     coordinate: Tuple[int, int]
-) -> (bool, Tuple[int, int]):
+) -> Tuple[bool, Tuple[int, int]]:
     global max_x, max_y, engine_schematic, part_numbers_coords
     adjacent_part_numbers = []
     adjacent_coordinates = []
@@ -199,7 +198,7 @@ def check_adjacent(coordinates: List[Tuple[int, int]]) -> bool:
 
 
 # Method to fine number starting at given coordinate
-def extract_number(coordinate: Tuple[int, int]) -> (int, List, Tuple[int, int]):
+def extract_number(coordinate: Tuple[int, int]) -> Tuple[int, List, Tuple[int, int]]:
     global max_x, max_y, engine_schematic
     number = ""
     coordinates_of_number = []

@@ -10,7 +10,7 @@ def main():
     start_time = time.time()
     # Open file
     script_dir = os.path.dirname(__file__)
-    rel_path = "inputs/corruptedmemory.txt"
+    rel_path = "../inputs/2024/corruptedmemory.txt"
     abs_file_path = os.path.join(script_dir, rel_path)
     reports = []
     with open(abs_file_path, "r") as file:

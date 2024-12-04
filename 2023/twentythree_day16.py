@@ -1,7 +1,6 @@
 import os
 import time
 from collections import deque
-from turtle import position
 
 
 # Main method
@@ -10,7 +9,7 @@ def main():
 
     # Open file
     script_dir = os.path.dirname(__file__)
-    rel_path = "inputs/floor_is_lava.txt"
+    rel_path = "../inputs/2023/floor_is_lava.txt"
     abs_file_path = os.path.join(script_dir, rel_path)
     with open(abs_file_path, "r") as file:
         lines = file.readlines()
