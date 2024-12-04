@@ -25,8 +25,7 @@ def main():
         possibleStrings.append("".join([lines[j][i] for j in range(yLen)]))
 
     # bottom up
-    for i in range(xLen):
-        possibleStrings.append("".join([lines[j][i] for j in range(yLen - 1, -1, -1)]))
+    possibleStrings.append(possibleStrings[0][::-1])
 
     # print(possibleStrings)
 
@@ -34,8 +33,7 @@ def main():
     for i in range(yLen):
         possibleStrings.append("".join([lines[i][j] for j in range(xLen)]))
     # right two left
-    for i in range(yLen):
-        possibleStrings.append("".join([lines[i][j] for j in range(xLen - 1, -1, -1)]))
+    possibleStrings.append(possibleStrings[-1][::-1])
 
     # diagonal left up to right down
     for k in range(xLen + yLen - 1):
