@@ -33,7 +33,7 @@ def main():
 
     listTrueConEquations = []
     for equation in equations:
-        starttimeeq = time.time()
+        #starttimeeq = time.time()
         if recursiveAddOrMultiORCon(0, equation[1], equation[0]) == equation[0]:
             listTrueConEquations.append(equation)
         # if (time.time() - starttimeeq) * 1000 > 10:
