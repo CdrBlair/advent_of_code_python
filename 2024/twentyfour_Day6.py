@@ -58,8 +58,9 @@ def main():
 
     curObs = None
     loopObs = 0
-
+    mapkeys = set(guardMap.keys())
     for key in guardMap:
+        timestarKey = time.time()
 
         # print("startPos", startPos, "key", key, "mapstartPos", guardMap[startPos])
         if not guardMap[key] == "." or key == startPos:
@@ -71,7 +72,7 @@ def main():
         pos = startPos
         # print("StartPos", pos, guardMap[pos])
         visitedDir = set()
-        while pos in guardMap:
+        while pos in mapkeys:
             lastPost = pos
             visitedDir.add((pos, guardMap[pos]))
             pos = move(guardMap, pos)
@@ -79,7 +80,6 @@ def main():
             # print("Post", pos, guardMap[pos])
             if pos in guardMap and (pos, guardMap[pos]) in visitedDir:
                 # print("loop")
-                lastPost = pos
                 loopObs += 1
                 break
 
@@ -87,6 +87,7 @@ def main():
         if not lastPost == startPos:
             guardMap[lastPost] = "."
         guardMap[curObs] = "."
+        # print("time for key in ms: ", (time.time() - timestarKey) * 1000)
     print(loopObs)
 
     endtimeP2 = time.time()
