@@ -1,8 +1,6 @@
 import os
 import time
 
-from httpx import post
-
 
 # Main method
 def main():
