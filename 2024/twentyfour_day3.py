@@ -1,8 +1,6 @@
 import os
 import re
 import time
-from calendar import c
-from hmac import new
 
 
 # Main method

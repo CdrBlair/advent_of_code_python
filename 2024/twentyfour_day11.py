@@ -1,8 +1,6 @@
 import os
-import string
 import time
 from functools import lru_cache
-from hmac import new
 
 
 # Main method
