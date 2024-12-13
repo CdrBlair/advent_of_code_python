@@ -1,9 +1,6 @@
 import os
 import time
 from collections import deque
-from tabnanny import check
-
-from networkx import neighbors
 
 
 # Main method
