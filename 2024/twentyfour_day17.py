@@ -1,10 +1,5 @@
 import os
-import re
 import time
-from collections import deque
-from mimetypes import init
-
-from httpx import get
 
 
 def main():
