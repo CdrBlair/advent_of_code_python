@@ -2,7 +2,6 @@ import os
 import time
 from functools import lru_cache
 
-from numpy import number
 
 
 def main():
