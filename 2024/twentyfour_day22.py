@@ -47,16 +47,10 @@ def main():
     endTimeP1 = time.time()
     print("Part 1 took: ", endTimeP1-starttime)
     print("Part 1 took in ms: ", (endTimeP1-starttime)*1000)
-    
-    digits = list(range(-9,10))
-    permutations = list(itertools.product(digits, repeat=4))
-    print(len(permutations))
 
-    bananas = 0 
     highest = 0
     bestsequence= ''
     i = 0 
-
 
     possibleSequences = set()
     for change in changes:
@@ -93,14 +87,15 @@ def main():
         changesAsStrings[secret] = changeAsString
 
 
-    i = 0
+    counter = 0
     for perm in possibleSequences:
         #timeperm = time.time()
-        print(i)
-        i+=1
+        # print(counter)
+        # counter += 1
         premString = ''.join(str(x) for x in perm)
         currentBananas = 0
-        for secret in changes:
+        for i, secret in enumerate(changes.keys()):
+            
             changeAsString = changesAsStrings[secret]
             permIndex = 0
             while permIndex != -1:
@@ -122,30 +117,19 @@ def main():
                 continue
             price = changes[secret][priceIndex][0]
             currentBananas += price
+            if (len(changes) - i) *9 + currentBananas < highest:
+                break
+
         if currentBananas >  highest:
             highest = currentBananas
             bestsequence = premString
         #print((time.time()-timeperm)*1000)
-        
-
-    
-        
     print(highest)
     print(bestsequence)
+    endTimeP2 = time.time()
+    print("Part 2 took: ", endTimeP2-endTimeP1)
+    print("Part 2 took in ms: ", (endTimeP2-endTimeP1)*1000)
         
-
-        
-            
-
-
-
-
-
-
-
-
-
-
 @lru_cache(maxsize=None)
 def firstStep(secret): 
     return ((secret*64)^secret)%16777216
