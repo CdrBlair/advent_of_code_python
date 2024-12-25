@@ -139,7 +139,6 @@ def main():
     print(y)
     print("Calculated z:",z)
     changeList = []
-    finalChanges = []
     for changes in validSets:
         tempGates = gatesP2.copy()
         changeList = []
