@@ -2,9 +2,6 @@
 import os
 import time
 
-from matplotlib.pyplot import box
-from networkx import number_of_cliques
-
 
 def main():
     start_time = time.time()
